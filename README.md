@@ -244,7 +244,7 @@ function callbackFunc () {
  ```
 มันจะทำ function ที่ใส่เข้าไปให้เสร็จก่อนแล้วค่อยออกมา
 
-
+## ลองเล่น
 ```javascript
 // Original
 asyncFunc(
@@ -274,4 +274,29 @@ const  f1 = str => print('cb1 : ' + str);
 const  f2 = str => print('cb2 : ' + str);
 
 asyncFunc(f1,f2);
+```
+
+```javascript
+// Original
+asyncFunc(cb, cb);
+
+function asyncFunc (cb1, cb2) {
+  cb1('A');
+  cb2('B');
+}
+
+function cb (str) {
+  print('cb : ' + str);
+}
+
+// Refactoring
+
+const cb = str => print('cb : ' + str)
+
+let  asyncFunc = (cb1,cb2) => {
+    cb("A");
+    cb("B");
+}
+asyncFunc(cb,cb);
+
 ```
