@@ -57,7 +57,8 @@ const b = materials.map(
     }
 );
 
-// ลบ  () ของ parameter ออก รวมถึง {},return ของ Function   
+// ลบ  () ของ parameter ออก
+รวมถึง {},return ของ Function   
 materials.map(material => material.length);
 //output [8, 6, 7, 9]
 
@@ -68,6 +69,33 @@ var simple = a => a > 15 ? 15 : a;
 print(simple(16));
 print(simple(10));
 // 15 10
+
+
+const a = (a,b=10) => a*b
+print(a(2));
+// 20
+
+
+//  ต้องใส่ () ด้วย ถ้าจะ Default
+const a = (a=5) => a
+print(a());
+```
+
+## nested arrow functions
+```javascript
+let add = (x,y) => x + y;
+add(2,3); //=> 5
+
+
+let add = x => y => x + y;
+add(2)(3);
+
+
+let add = function (x) {
+  return function (y) {
+    return x + y;
+  };
+};
 ```
 
 ## [ What is    Functional Programming ](https://medium.com/funk-tional/hello-functional-programming-eacb0091a53c)
