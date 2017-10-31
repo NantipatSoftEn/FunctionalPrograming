@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 const f = x => x * 2
 print(f(2));
 
-===========================
+//===========================
 var materials = [
   'Hydrogen',
   'Helium',
@@ -60,6 +60,14 @@ const b = materials.map(
 // ลบ  () ของ parameter ออก รวมถึง {},return ของ Function   
 materials.map(material => material.length);
 //output [8, 6, 7, 9]
+
+
+//====================================
+var simple = a => a > 15 ? 15 : a;
+
+print(simple(16));
+print(simple(10));
+// 15 10
 ```
 
 ## [ What is    Functional Programming ](https://medium.com/funk-tional/hello-functional-programming-eacb0091a53c)
