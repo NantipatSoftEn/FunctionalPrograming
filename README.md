@@ -135,3 +135,35 @@ function square(n) { return n * n; }
 - เมื่อมี input ค่าหนึ่ง จะได้ต้องได้ output เท่าเดิมเสมอ
 
 -  ไม่ไปเปลี่ยนแปลงค่าของตัวแปรจำพวก global variable หรือ static variable
+
+ ##  First-class function & Higher-order function
+  - First-class function คือ feature ของ programming language ที่อนุญาตให้ function นั้นเป็น first-class citizen ประชากรอันดับหนึ่งของภาษา เทียบเท่ากับ value อื่น ๆ อย่างตัวเลข หรือ string เป็นต้น ซึ่งเราสามารถ assign function ให้กับตัวแปรได้ เป็น argument หรือ return value ของ function อื่นๆก็ได้
+
+  - function ในลักษณะที่รับ argument เป็น function หรือ return function ออกมามีชื่อเรียกว่า  Higher-order function
+
+  ## Lambda expression & Closure
+
+  - ตัวแปร (ในเชิงคณิตศาสตร์ ซึ่งเป็นตัวแทนของค่า หรือ argument ของ function ไม่ใช่ mutable variable หรือตัวแปรแบบที่เรา update ค่าได้เรื่อยๆเวลาเขียนโปรแกรมแบบ imperative)
+
+ - function ซึ่งใน Lambda calculus นั้น function ไม่มีชื่อ
+
+ - application ([function][argument]) ถ้าเปรียบเทียบกับพีชคณิตก็คล้ายๆกับแทนค่า parameter ใน function เช่น ƒ(3), g(21)
+
+ ```javascript
+ const foo = [1,2,3];
+ const baz = foo.map(function bar (n) { return n + 1; });
+ ```
+
+ ส่วน Closure เป็นสิ่งที่ผมสงสัยอยู่นานมาก เพราะมักจะเจอตัวอย่างแบบนี้
+
+```javascript
+ function ticker() {
+   let count = 0;
+   return () => count++;
+ }
+ let t = ticker();
+ t(); // 0
+ t(); // 1
+ t(); // 2
+ t(); // 3
+ ```
