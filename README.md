@@ -1,4 +1,5 @@
 ## [ JavaScript ES6 (ES2015) ](https://blog.nextzy.me/javascript-es-2015-overview-c81c5e3ce43d)
+## [รู้จักกับ Javascript Callback Function](https://medium.com/@n9ti/%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-javascript-callback-function-274364969cb5)
 ## Arrow function
 ```javascript
 // ES6
@@ -185,4 +186,17 @@ function square(n) { return n * n; }
  const makeAdder2  = a => b => a + b;
  const addfuck = makeAdder2(5)
  addfuck(20)
+ ```
+
+ คราวนี้จะเห็นได้ว่าทั้ง makeAdder, addFive และ addTen ล้วนเป็น pure function หรือตัวอย่างที่ดูฉลาดขึ้นหน่อย
+
+ ```javascript
+ const makeSum = transFunc  => (a, b) =>
+ transFunc(a) + transFunc(b);
+
+const sumSquared = makeSum(n => n * n);
+const sumCubed = makeSum(n => n * n * n);
+
+sumSquared(1, 2); // 1^2 + 2^2 => 5
+sumCubed(1, 2); // 1^3 + 2^3 => 9
  ```
