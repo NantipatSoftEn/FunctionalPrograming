@@ -1,5 +1,5 @@
 ## [ JavaScript ES6 (ES2015) ](https://blog.nextzy.me/javascript-es-2015-overview-c81c5e3ce43d)
-## [รู้จักกับ Javascript Callback Function](https://medium.com/@n9ti/%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-javascript-callback-function-274364969cb5)
+
 ## Arrow function
 ```javascript
 // ES6
@@ -200,3 +200,46 @@ const sumCubed = makeSum(n => n * n * n);
 sumSquared(1, 2); // 1^2 + 2^2 => 5
 sumCubed(1, 2); // 1^3 + 2^3 => 9
  ```
+ ## [รู้จักกับ Javascript Callback Function](https://medium.com/@n9ti/%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-javascript-callback-function-274364969cb5)
+ ### แบบธรรมดา (sync )
+ ```javascript
+console.log('Step 1');
+funcSync();
+console.log('Step 3');
+
+function funcSync () {
+  console.log('Step 2');
+}
+ ```
+ ### แบบไม่ธรรมดา (async )
+ ```javascript
+ setTimeout(function(){
+   console.log('Step 1')
+ }, 3000);
+
+ console.log('Step 2')
+
+ // ผลลัพท์
+ // Step 2
+ // Step 1
+
+setTimeout(doSomeThing, 3000);
+
+function doSomeThing () {
+  console.log('Hello')
+}
+ ```
+ ฟังชั่น setTimeout จะมีการรับ parameter อยู่ 2 ตัวก็คือ
+Function ที่จะให้ทำงานเมื่อถึงเวลาที่กำหนด(หรือก็คือ Callback Function นั่นเอง)
+Integer ที่ใช้กำหนดเวลา มีหน่วยเป็น ms
+
+ ```javascript
+ const myAsyncFunc = callback => callback();
+
+myAsyncFunc(callbackFunc);
+
+function callbackFunc () {
+  print('this is callback function')
+}
+  ```
+มันจะทำ function ที่ใส่เข้าไปให้เสร็จก่อนแล้วค่อยออกมา
