@@ -9,11 +9,57 @@
   return num * 2;
 });
 
+// ES6
 app.get('/', (req, res) => {  
   res.json({
     message: 'Hello World'
   });
 });
+
+// ES5
+app.get('/', function(req, res) {  
+  res.json({
+    message: 'Hello World'
+  });
+});
+
+
+() => ‘Hello’
+() => {} (แบบ code block)
+(num) => num * 2
+(num1, num2) => {return num1 + num2;} (แบบ code block)
+() => ({ foo: ‘bar’ }) (return เป็น Object ให้ใช้ปีกกา)
+```
+## ลองเล่น
+```javascript
+const f = x => x * 2
+print(f(2));
+
+===========================
+var materials = [
+  'Hydrogen',
+  'Helium',
+  'Lithium',
+  'Beryllium'
+];
+
+//จัดให้ดูง่ายสำหรับผม
+const a = materials.map(
+    function(material) {
+        return material.length;
+    }
+);
+
+//เปลื่อน function เป็น =>  ไว้ด้านหลังแทน
+const b = materials.map(
+    (material) => {
+      return material.length;
+    }
+);
+
+// ลบ  () ของ parameter ออก รวมถึง {},return ของ Function   
+materials.map(material => material.length);
+//output [8, 6, 7, 9]
 ```
 
 ## [ What is    Functional Programming ](https://medium.com/funk-tional/hello-functional-programming-eacb0091a53c)
