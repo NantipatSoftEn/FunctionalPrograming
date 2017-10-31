@@ -330,13 +330,61 @@ asyncFunc(cb, cb);
 
 ## [จัดการ Callback](https://blog.panjmp.com/async-await-%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%B2%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81-syntax-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%88%E0%B8%B0%E0%B8%A1%E0%B8%B2%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%99%E0%B9%82%E0%B8%A5%E0%B8%81%E0%B8%82%E0%B8%AD%E0%B8%87-javascript-%E0%B8%81%E0%B8%B1%E0%B8%99-3f02091eca05)
 
+## Promise
+
+เป็นเหมือนกับคำสัญญาว่าจะทำคำสั่งนี้ให้เรานะ โดยมันจะมีอยู่ 3 สถานะก็คือ pending, resolved, rejected เมื่อเริ่มต้นทำคำสั่ง promise จะมีสถานะเป็น pending ถ้าทำเสร็จแล้วจะมีสถานะเป็น resolved โดยจะทำคำสั่งถัดไปที่อยู่ใน .then() และถ้าทำคำสั่งไม่สำเร็จ จะมีสถานะเป็น rejected และจะไม่ทำคำสั่งถัดไป แต่จะทำคำสั่งที่อยู่ใน .catch() แทน
 ```javascript
-function do() {
-  return doA().then(function(a) {
-    return doB(a);
-  }).then(function(b) {
-    return doC(b);
-  });
+var p = new Promise(function(resolve, reject) {
+    let a = 5;
+    if(a >= 5) {
+        resolve(a);
+    }else {
+        reject(a);
+    }
+}).then(function(a) {
+    console.log(`result then : ${a}`);
+    return a + 2;
+}).then(function(b) {
+    console.log(`result then : ${b}`);
+}).catch(function(a) {
+    console.log(`result catch : ${a}`);
+});
+```
+## Note
+การส่ง return จะไม่ออกมาข้างนอกนะ จะเข้า parameter  then ถัดไป
+
+
+## async/await
+```javascript
+const resolveAfter2Seconds = x => {
+     return new Promise(
+        resolve => {
+            setTimeout(() => {
+                resolve(x);
+            }, 2000);
+        }
+    );
 }
-view raw
+console.log(resolveAfter2Seconds(50));
+
+async function add1(x) {
+  const a = await resolveAfter2Seconds(20);
+  const b = await resolveAfter2Seconds(30);
+  return x + a + b;
+}
+console.log(add1(100));
+
+add1(10).then(v => {
+    console.log(v);  // prints 60 after 4 seconds.
+});
+
+async function add2(x) {
+  const p_a = resolveAfter2Seconds(20);
+  const p_b = resolveAfter2Seconds(30);
+  return x + await p_a + await p_b;
+}
+
+add2(10).then(v => {
+  console.log(v);  // prints 60 after 2 seconds.
+});
 ```
