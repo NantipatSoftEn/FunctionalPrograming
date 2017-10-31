@@ -167,3 +167,22 @@ function square(n) { return n * n; }
  t(); // 2
  t(); // 3
  ```
+
+ เขาบอกว่า Closures คือ functions ที่อ้างอิง free variables เจ้า free variables เนี่ย มันคือตัวแปรที่ไม่ได้ถูกประกาศไว้ใน parameter จากตัวอย่างด้านบน จะเห็นได้ว่า () => count++ ไม่มี parameter เลย แต่มีตัวแปร count ซึ่งโดยปกติแล้วเมื่อ execute ticker เสร็จ เจ้า count ควรจะถูก garbage collector เก็บไป แต่ในกรณีนี้ เมื่อเราบอกว่า let t = ticker(); แล้ว t จะกลายเป็น closure ซึ่งเป็น function ที่จำสภาพแวดล้อมที่สร้างมันขึ้นมา ทำให้ผลลัพธ์เป็นอย่างที่เห็น แต่ไม่เป็น FP
+
+ ```javascript
+ // Original
+ function makeAdder(a) {
+   return b => a + b;
+ }
+ const addFive = makeAdder(5);
+ const addTen = makeAdder(10);
+ addFive(20); // 5 + 20 => 25
+ addTen(9); // 10 + 9 => 19
+
+
+ // Refactoring
+ const makeAdder2  = a => b => a + b;
+ const addfuck = makeAdder2(5)
+ addfuck(20)
+ ```
