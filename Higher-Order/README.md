@@ -120,5 +120,20 @@ const subOfCartByFunction = (cart,f) => {
 เป็น  Higher-order   ละ (รับ parameter เป็น function)
 (cart,(item->number)) -> number
 
+
 ```javascript
+const numberOfItemsInCart = cart => subOfCartByFunction(cart,quantityOfItem)
+const subtotalOfCart = cart => subOfCartByFunction(cart,subtotalOfItem)
 ```
+แต่มันก็ยัง  Duplicated ต่างกันแค่ ชื่อ   รวมมันซะ
+
+```javascript
+const sumOfCartBy = f => cart =>  subOfCartByFunction(cart,f)
+
+const subtotalOfCart = sumOfCartBy(subtotalOfItem)
+const numberOfItemsInCart =  sumOfCartBy(quantityOfItem)
+
+
+print(subtotalOfCart(myCart))
+```
+(item -> number) -> cart -> number
