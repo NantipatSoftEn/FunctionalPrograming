@@ -388,3 +388,81 @@ add2(10).then(v => {
   console.log(v);  // prints 60 after 2 seconds.
 });
 ```
+## [Function Composition](https://medium.com/jitta-engineering/%E0%B8%A1%E0%B8%B2%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-function-composition-%E0%B8%81%E0%B8%B1%E0%B8%99-8591d8181cb)
+
+คือกระบวนการรวมกันของ functions มากกว่า 1 ขึ้นไป และก่อให้เกิด function ใหม่ขึ้นมา
+หรือรูปแบบหนึ่งที่ใช้ในการอธิบายที่ง่ายที่สุดก็คือ f(g(x)) หรือการรวมกันของ function f และ g มากระทำกับ x
+
+
+```javascript
+const compose = function(f, g) {
+  return function(x) {
+    return f(g(x))
+  }
+}
+
+const compose = (f, g) => x => f(g(x))
+```
+apply functions ไล่ไปจาก ขวา ไป ซ้าย
+
+### ตัวอย่าง
+จินตนาการว่า เราจะสร้าง function ทำความสะอาด String ก่อนนำไปใช้งาน (sanitize function)
+
+### ขั้นตอนการทำงาน
+ตัดช่องว่างที่ไม่จำเป็นหน้าหลังของคำ (trim)
+แปลงคำทั้งหมดเป็นตัวพิมพ์เล็ก (trim)
+-  ตัดช่องว่างที่ไม่จำเป็นหน้าหลังของคำ (trim)
+-  แปลงคำทั้งหมดเป็นตัวพิมพ์เล็ก (trim)
+
+```javascript
+function sanitize(str) {
+  return str.trim().toLowerCase()
+}
+sanitize('  Hello My Name is Ham     ') // 'hello my name is ham'
+```
+
+ทีนี้ เราลองเขียนแบบ FP กันดู
+
+```javascript
+const trim = s => s.trim()
+const toLowerCase = s => s.toLowerCase()
+function sanitize(str) {
+  return toLowerCase(trim(str))
+}
+sanitize('  Hello My Name is Ham     ') // 'hello my name is ham'
+```
+
+```javascript
+const compose = (f, g) => x => f(g(x))
+const sanitize = compose(toLowerCase, trim)
+sanitize('  Hello My Name is Ham     ') // 'hello my name is ham'
+```
+```javascript
+const trim = s => s.trim()
+const toLowerCase = s => s.toLowerCase()
+const join = separator => arr => arr.join(separator)
+const split = separator => arr => arr.split(separator)
+const toSlug = compose(
+  toLowerCase,
+  join('-'),
+  split(' '),
+  trim,
+)
+toSlug('   THIS is SluG    ') // 'this-is-slug'
+```
+
+## Pipe
+ลักษณะการทำงานของ pipe คือ การส่งต่อ ผลลัพธ์ ที่ได้จากการ คำสั่งก่อนหน้า ไปให้แก่ คำสั่งด้านหลัง
+- compose: apply function จาก ขวา ไป ซ้าย
+- pipe: apply function จาก ซ้าย ไป ขวา
+
+
+```javascript
+const toSlug = pipe(
+  trim,
+  split(' '),
+  join('-'),
+  toLowerCase,
+)
+toSlug('   THIS is SluG    ') // 'this-is-slug'
+```
