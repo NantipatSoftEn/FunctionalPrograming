@@ -119,3 +119,6 @@ const subOfCartByFunction = (cart,f) => {
 ```
 เป็น  Higher-order   ละ (รับ parameter เป็น function)
 (cart,(item->number)) -> number
+
+```javascript
+```
