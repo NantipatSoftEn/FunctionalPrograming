@@ -15,6 +15,23 @@ let subtotalOfCart = cart => {
 
 print(subtotalOfCart(myCart))
 ```
+
+
 a function  that takes a cart -> returns a number
 
 เขียนสั้นๆว่า  cart -> number
+
+#####  ถ้าอยากให้มันนับได้หล่ะ
+
+```javascript
+const numberOfItemsInCart = cart => {
+    let sum = 0;
+    for(let item of cart){
+           sum+= item.quantity
+    }
+    return sum  
+}
+
+print(numberOfItemsInCart(myCart))
+```
+สังเกตว่ามัน Duplicated 
