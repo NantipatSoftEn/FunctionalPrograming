@@ -8,7 +8,7 @@ const subtotalOfItem = item => item.unitPrice*item.quantity
 const quantityOfItem = item => item.quantity
 
 const sumOfCartBy = f => cart =>
-      cart.map(f).reduce((x,y) => x+y,0)
+      cart.map(f).reduce((x,y) => x+y)
 
 const subtotalOfCart = sumOfCartBy(subtotalOfItem)
 const numberOfItemsInCart =  sumOfCartBy(quantityOfItem)

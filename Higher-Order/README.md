@@ -176,3 +176,5 @@ print(numberOfItemsInCart(myCart))
 const sumOfCartBy = f => cart =>
       cart.map(f).reduce((x,y) => x+y,0)
 ```
+### Note
+ map() และ reduce รับ parameter เป็น เป็น function
