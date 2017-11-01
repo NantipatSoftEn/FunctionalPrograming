@@ -171,3 +171,8 @@ const numberOfItemsInCart =  sumOfCartBy(quantityOfItem)
 print(subtotalOfCart(myCart))
 print(numberOfItemsInCart(myCart))
 ```
+ใช้ map กับ reduce ลด Loop
+```javascript
+const sumOfCartBy = f => cart =>
+      cart.map(f).reduce((x,y) => x+y,0)
+```
