@@ -197,3 +197,7 @@ arr.filter(item => item % 2 === 0) // [2, 4]
 arr.map(item => item * 2)
    .filter(item => item % 2 === 0) // [2, 4, 6, 8]
  ```
+## Higher-order Component
+functions that takes a React Component
+and returns another React Component
+ReactComponent -> ReactComponent
