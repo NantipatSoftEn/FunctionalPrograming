@@ -103,3 +103,18 @@ interface NumberOrStringDictionary {
 ```
 
 ## Class Type
+
+หนึ่งในการใช้ interface ที่พบบ่อยสุด เป็น pattern OOP ที่ปกติทั่วไปอยู่แล้ว
+
+```tsx
+interface ClockInterface {
+  currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date = new Date();
+  constructor(h: number, m: number) {}
+}
+```
+
+## Difference between the static and instance sides of classes
