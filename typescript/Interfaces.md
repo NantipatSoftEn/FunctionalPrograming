@@ -79,6 +79,27 @@ interface SearchFunc {
 
 ## Indexable Types
 
-เหมือนการใช้ map ที่มีการกำหนด index type ได้
+เหมือนการใช้ map ที่มีการกำหนด index type ได้ ลองดูตัวอย่างที่ type ช่วยเราไว้ไม่ให้พลาด
+
+```tsx
+interface NumberDictionary {
+  [index: string]: number;
+  length: number; // ok, length is a number
+  name: string; // error, the type of 'name' is not a subtype of the indexer
+  //Property 'name' of type 'string' is not assignable to string index type 'number'.
+}
+```
+
+`name: string` ค่าของ index ผิดเพราะเรา assign ไว้เป็น `[index: string]: number;`
+
+ถ้าจะทำให้ถูกต้องละก็ต้องทำแบบนี้
+
+```tsx
+interface NumberOrStringDictionary {
+  [index: string]: number | string;
+  length: number; // ok, length is a number
+  name: string; // ok, name is a string
+}
+```
 
 ## Class Type
