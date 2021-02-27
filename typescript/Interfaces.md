@@ -119,7 +119,7 @@ class Clock implements ClockInterface {
 
 ## Difference between the static and instance sides of classes
 
-เมื่อทำงานกับ class และ inter face โปรดทราบว่าclass มีสองประเภทคือประเภทของstatic sideและ type of instant คุณอาจสังเกตเห็นว่าถ้าคุณสร้างอินเทอร์เฟซด้วย construct signature และพยายามสร้างคลาสที่ใช้อินเทอร์เฟซนี้คุณจะได้รับข้อผิดพลาด
+เมื่อทำงานกับ class และ interface โปรดทราบว่า class มีสองประเภทคือประเภทของ static side และ type of instant คุณอาจสังเกตเห็นว่าถ้าคุณสร้างอินเทอร์เฟซด้วย construct signature และพยายามสร้างคลาสที่ใช้อินเทอร์เฟซนี้คุณจะได้รับข้อผิดพลาด
 
 ```tsx
 interface ClockConstructor {
@@ -134,9 +134,10 @@ class Clock implements ClockConstructor {
 }
 ```
 
-เนื่องจากเมื่อ class ใช้ interface จะตรวจสอบเฉพาะด้าน instant ของคลาสเท่านั้น เนื่องจาก constructer อยู่ใน static side จึงไม่รวมอยู่ในการตรวจสอบนี้
+เนื่องจากเมื่อ class ใช้ interface, only the instance side of the class is checked
 
 แทนที่คุณจะต้องทำงานกับ static side ของ class โดยตรง ในตัวอย่าง define 2 interfaces
+Since the constructor sits in the static side, it is not included in this check.
 
 `ClockConstructor` for contructor
 `ClockInterface` for instant method
@@ -178,4 +179,51 @@ let digital = createClock(DigitalClock, 12, 17);
 let analog = createClock(AnalogClock, 7, 32);
 ```
 
-เนื่องจากเมื่อ class ใช้ interface ตรวจสอบเฉพาะด้าน instant เท่านั้น เนื่องจาก constructor อยู่ใน static side จึงไม่รวมอยู่ในการตรวจสอบนี้
+เนื่องจากพารามิเตอร์แรกของ `createClock` เป็นประเภท `ClockConstructor` ใน `createClock`
+`(AnalogClock, 7, 32)` จึงตรวจสอบว่า `AnalogClock` มี constructor signature ถูกต้อง
+
+Another simple way is to use class expressions:
+
+```tsx
+interface ClockConstructor {
+  new (hour: number, minute: number): ClockInterface;
+}
+
+interface ClockInterface {
+  tick(): void;
+}
+
+const Clock: ClockConstructor = class Clock implements ClockInterface {
+  constructor(h: number, m: number) {}
+  tick() {
+    console.log("beep beep");
+  }
+};
+
+let clock = new Clock(12, 17);
+clock.tick();
+```
+
+อีกวิธีง่ายๆ
+
+```tsx
+interface ClockConstructor {
+  new (hour: number, minute: number): ClockInterface;
+}
+
+interface ClockInterface {
+  tick(): void;
+}
+
+const Clock: ClockConstructor = class Clock implements ClockInterface {
+  constructor(h: number, m: number) {}
+  tick() {
+    console.log("beep beep");
+  }
+};
+
+let clock = new Clock(12, 17);
+clock.tick();
+```
+
+##
