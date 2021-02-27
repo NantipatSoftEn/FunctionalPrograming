@@ -118,3 +118,64 @@ class Clock implements ClockInterface {
 ```
 
 ## Difference between the static and instance sides of classes
+
+เมื่อทำงานกับ class และ inter face โปรดทราบว่าclass มีสองประเภทคือประเภทของstatic sideและ type of instant คุณอาจสังเกตเห็นว่าถ้าคุณสร้างอินเทอร์เฟซด้วย construct signature และพยายามสร้างคลาสที่ใช้อินเทอร์เฟซนี้คุณจะได้รับข้อผิดพลาด
+
+```tsx
+interface ClockConstructor {
+  new (hour: number, minute: number);
+}
+
+class Clock implements ClockConstructor {
+  // Class 'Clock' incorrectly implements interface 'ClockConstructor'.
+  //   Type 'Clock' provides no match for the signature 'new (hour: number, minute: number): any'.
+  currentTime: Date;
+  constructor(h: number, m: number) {}
+}
+```
+
+เนื่องจากเมื่อ class ใช้ interface จะตรวจสอบเฉพาะด้าน instant ของคลาสเท่านั้น เนื่องจาก constructer อยู่ใน static side จึงไม่รวมอยู่ในการตรวจสอบนี้
+
+แทนที่คุณจะต้องทำงานกับ static side ของ class โดยตรง ในตัวอย่าง define 2 interfaces
+
+`ClockConstructor` for contructor
+`ClockInterface` for instant method
+
+จากนั้นเพื่อความสะดวกเรากำหนด function `createClock` ที่สร้าง instant ของประเภทท่ส่งไป
+
+```tsx
+interface ClockConstructor {
+  new (hour: number, minute: number): ClockInterface;
+}
+
+interface ClockInterface {
+  tick(): void;
+}
+
+function createClock(
+  ctor: ClockConstructor,
+  hour: number,
+  minute: number
+): ClockInterface {
+  return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+  constructor(h: number, m: number) {}
+  tick() {
+    console.log("beep beep");
+  }
+}
+
+class AnalogClock implements ClockInterface {
+  constructor(h: number, m: number) {}
+  tick() {
+    console.log("tick tock");
+  }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+```
+
+เนื่องจากเมื่อ class ใช้ interface ตรวจสอบเฉพาะด้าน instant เท่านั้น เนื่องจาก constructor อยู่ใน static side จึงไม่รวมอยู่ในการตรวจสอบนี้
