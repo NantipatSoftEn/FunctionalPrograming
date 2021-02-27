@@ -1,3 +1,13 @@
-let someValue: unknown = "this is a string";
+interface Animal {
+  name: string;
+}
 
-let strLength: number = (<string>someValue).length;
+interface Dog extends Animal {
+  breed: string;
+}
+
+interface NotOkay {
+  [x: number]: Animal;
+
+  [x: string]: Dog;
+}
