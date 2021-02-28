@@ -226,4 +226,35 @@ let clock = new Clock(12, 17);
 clock.tick();
 ```
 
-##
+## Extending Interfaces
+
+ดูจาก code ได้เลยอันนี้เข้าใจง่าย
+
+```tsx
+interface Shape {
+  color: string;
+}
+
+interface PenStroke {
+  penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+  sideLength: number;
+}
+
+let square = {} as Square;
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+```
+
+## Hybrid Types
+
+ดังที่เราได้กล่าวไว้ก่อนหน้านี้อินเทอร์เฟซสามารถอธิบายประเภทที่หลากหลายที่มีอยู่ใน JavaScript ในโลกแห่งความจริง JavaScript’s dynamic and flexible nature คุณอาจจะเจอ Object แบบ Hybrid
+
+ตัวอย่างหนึ่งคืออ็อบเจ็กต์ที่ทำหน้าที่เป็นทั้งฟังก์ชันและอ็อบเจ็กต์โดยมีคุณสมบัติเพิ่มเติม:
+
+## Interfaces Extending Classes
+
+เมื่อ interface type extends a class type it inherits the members of the class แต่ไม่ใช้การนำไปใช้งาน เหมือนว่า interface มีการประกาศสมาชิกทั้งหมดของ class โดยไม่ต้องมีการใช้งาน
