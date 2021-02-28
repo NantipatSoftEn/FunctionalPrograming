@@ -257,4 +257,33 @@ square.penWidth = 5.0;
 
 ## Interfaces Extending Classes
 
-เมื่อ interface type extends a class type it inherits the members of the class แต่ไม่ใช้การนำไปใช้งาน เหมือนว่า interface มีการประกาศสมาชิกทั้งหมดของ class โดยไม่ต้องมีการใช้งาน
+เมื่อ interface type extends a class type it inherits the members of the class แต่ไม่ใช้การนำไปใช้งาน เหมือนว่า interface มีการประกาศสมาชิกทั้งหมดของ class โดยไม่ต้องมีการใช้งาน Interfaces สืบทอดแม้กระทั้ง private and protected members of a base
+
+หมายความว่าคุณสามารถสร้าง interface that extends a class with private or protected members
+
+สิ่งนี้มีประโยชน์เมื่อคุณมีลำดับชั้นการสืบทอดขนาดใหญ่ แต่ต้องการระบุว่าโค้ดของคุณใช้งานได้กับคลาสย่อยที่มีคุณสมบัติบางอย่างเท่านั้น คลาสย่อยไม่จำเป็นต้องเกี่ยวข้องกันนอกเหนือจากการสืบทอดจากคลาสพื้นฐาน ตัวอย่างเช่น:
+
+```tsx
+class Control {
+  private state: any;
+}
+
+interface SelectableControl extends Control {
+  select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+  select() {}
+}
+
+class TextBox extends Control {
+  select() {}
+}
+
+class ImageControl implements SelectableControl {
+  // Class 'ImageControl' incorrectly implements interface 'SelectableControl'.
+  //   Types have separate declarations of a private property 'state'.
+  private state: any;
+  select() {}
+}
+```
