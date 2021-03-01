@@ -1,20 +1,7 @@
-interface Shape {
-  color: string;
+function buildName(firstName: string, ...restOfName: string[]) {
+  return firstName + " " + restOfName.join(" ");
 }
 
-interface PenStroke {
-  penWidth: number;
-}
+let buildNameFun: (fname: string, ...rest: string[]) => string = buildName;
 
-interface Square extends Shape, PenStroke {
-  sideLength: number;
-}
-
-let square = {
-  color: 1,
-} as Square;
-// square.color = "blue";
-// square.sideLength = 10;
-// square.penWidth = 5.0;
-
-console.log(square);
+console.log(buildNameFun("Joseph", "Samuel", "Lucas", "MacKinzie"));
