@@ -1,7 +1,10 @@
-function buildName(firstName: string, ...restOfName: string[]) {
-  return firstName + " " + restOfName.join(" ");
+function person() {
+  return {
+    name: "John Doe",
+    print: function () {
+      console.log(this.name);
+    },
+  };
 }
-
-let buildNameFun: (fname: string, ...rest: string[]) => string = buildName;
-
-console.log(buildNameFun("Joseph", "Samuel", "Lucas", "MacKinzie"));
+var obj = person("John Doe");
+obj.print(); //John Doe
