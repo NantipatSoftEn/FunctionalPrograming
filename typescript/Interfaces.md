@@ -287,3 +287,5 @@ class ImageControl implements SelectableControl {
   select() {}
 }
 ```
+
+ตัวอย่างข้างต้น `SelectableControl` มีสมาชิกทั้งหมดของ `Control` รวมถึง private `state` property เนื่องจาก `state` เป็น `private` จึงเป็นไปได้สำหรับทายาทของ Control เท่านั้นที่จะใช้ SelectableControl เนื่องจากทายาทของ`Control` เท่านั้นที่จะมี private state ที่มาจากคำประกาศเดียวกันซึ่งเป็นข้อกำหนดสำหรับสมาชิกส่วนตัวที่จะเข้ากันได้
