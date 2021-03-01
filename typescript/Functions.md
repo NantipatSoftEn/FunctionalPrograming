@@ -18,7 +18,7 @@
 let deck = {
   suits: ["hearts", "spades", "clubs", "diamonds"],
   cards: Array(52),
-  // มันไม่รู้จัก suits, cards
+  // createCardPicker เป็น global ทำให้ไม่รู้จัก suits, cards ใน deck
   createCardPicker: function () {
     return function () {
       let pickedCard = Math.floor(Math.random() * 52);
@@ -41,13 +41,20 @@ alert("card: " + pickedCard.card + " of " + pickedCard.suit);
 
 เราสามารถแก้ไขได้โดยตรวจสอบให้แน่ใจว่าฟังก์ชันถูกผูกไว้กับสิ่งที่ถูกต้อง `this` ก่อนที่เราจะส่งคืนฟังก์ชันเพื่อใช้ในภายหลัง ด้วยวิธีนี้ไม่ว่าจะนำไปใช้อย่างไรในภายหลัง it will still be able to see the original `deck` object.
 
-การใช้ this กับ arrow function ของ JavaScript นั้นจะไม่เหมือนกับการประกาศ function แบบปกติเพราะมันจะไม่ผูกกับ object ตัวนั้นแต่จะยังผูกกับ global อยู่
+การใช้ this กับ arrow function ของ JavaScript นั้นจะไม่เหมือนกับการประกาศ function แบบปกติเพราะมันจะไม่ผูกกับ object ตัวนั้นแต่จะยังผูกกับ global
 
 ```tsx
-return () => {
-  let pickedCard = Math.floor(Math.random() * 52);
-  let pickedSuit = Math.floor(pickedCard / 13);
+let deck = {
+  suits: ["hearts", "spades", "clubs", "diamonds"],
+  cards: Array(52),
+  // createCardPicker ผูกกับ   global แล้ว
+  createCardPicker: function () {
+    return function () {
+      let pickedCard = Math.floor(Math.random() * 52);
+      let pickedSuit = Math.floor(pickedCard / 13);
 
-  return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
+      return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
+    };
+  },
 };
 ```
