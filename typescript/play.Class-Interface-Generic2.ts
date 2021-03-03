@@ -6,12 +6,12 @@ interface ITypeClass<T> {
   get2(number: T): number;
 }
 
-interface IVarOfClass2<T> {
+interface IVarOfClass2<T1, T2> {
   name: T;
   age: T;
 }
 
-class NormalClass2<T extends IVarOfClass2<string>>
+class NormalClass2<T extends IVarOfClass2<string, number>>
   implements ITypeClass<number> {
   // T of class
   varOfClass: T;
@@ -31,7 +31,10 @@ class NormalClass2<T extends IVarOfClass2<string>>
   }
 }
 //  ต้องใช้ T ใน constructor
-const c2 = new NormalClass2<IVarOfClass2<string>>({ name: "army", age: "22" });
+const c2 = new NormalClass2<IVarOfClass2<string, number>>({
+  name: "army",
+  age: 22,
+});
 
 console.log(c1.get1(1));
 
