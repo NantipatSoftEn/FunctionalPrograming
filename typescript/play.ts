@@ -1,50 +1,24 @@
-enum Roles {
-  SwardMan,
-  WiZard,
-  please,
-}
-interface IHuman {
-  name: string;
-  age: number;
-  role: Roles;
-
-  attack(damag: number): string;
-  skill(name: string): string;
-  getStatus(): void;
+interface ITypeGeneric<T> {
+  status: T;
+  doing(arg: T): T;
 }
 
-class Uchiva {
-  eyes: number;
-  constructor(eyes: number) {
-    this.eyes = eyes;
+class GenericNumber1<T> {
+  status: number;
+  zeroValue: T;
+  n: T;
+  constructor(n: T) {
+    this.n = n;
   }
-
-  getEye(): string {
-    return `get ${this.eyes}`;
+  add: (x: T, y: T) => T;
+  minus: (x: number, y: number) => number;
+  test<T>(arg: T): T {
+    return arg;
   }
 }
 
-class Human extends Uchiva implements IHuman {
-  name: string;
-  age: number;
-  role: Roles;
-  eyes: number;
-  constructor(name: string, age: number, role: Roles, eyes: number) {
-    super(eyes);
-    this.name = name;
-    this.age = age;
-    this.role = role;
-  }
-
-  attack(damag: number): string {
-    return `atk ${damag}`;
-  }
-
-  skill(name: string): string {
-    return `skill ~${name}`;
-  }
-
-  getStatus() {}
-}
-
-const Army = new Human("army", 22, Roles.SwardMan);
+let myGenericNumber = new GenericNumber1<number>(11);
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) {
+  return x + y;
+};
