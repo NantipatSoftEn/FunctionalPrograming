@@ -1,44 +1,28 @@
-class Animal<T> {
-  legs: T;
-  constructor(legs: T) {
-    this.legs = legs;
-  }
-  move(distanceInMeters: number = 0) {
-    return `Animal moved ${distanceInMeters}m.`;
+class TestBase {
+  hi() {
+    console.log("Hi from base");
   }
 }
 
-class Dog extends Animal<number> {
-  constructor(legs: number) {
-    super(legs);
-  }
-  bark() {
-    return "Woof Woof";
+class TestSub extends TestBase {
+  hi() {
+    console.log("Hi from sub");
   }
 }
 
-class Cat extends Animal<number> {
-  meaw() {
-    return "meaw";
+class TestTwo<T extends TestBase> {
+  constructor(private testType: new () => T) {}
+
+  getNew(): T {
+    return new this.testType();
   }
 }
-// const dog = new Dog(4);
 
-// dog.bark();
-// dog.move(10);
-// dog.bark();
+var test1 = new TestTwo<TestBase>(TestBase);
+var test2 = new TestTwo<TestSub>(TestSub);
 
-function create<T extends Animal<number>>(c: { new (): T }): T {
-  return new c();
-}
+var example1 = test1.getNew();
+example1.hi();
 
-// ลองแบบ arrow function
-
-const create2 = <T extends Animal<number>>(c: { new (): T }) => new c();
-
-// not work ?
-const dogs = create(Dog);
-
-// const dog2 = create2(Dog);
-// console.log(dogs.bark());
-// console.log(dog2.bark());
+var example2 = test2.getNew();
+example2.hi();
