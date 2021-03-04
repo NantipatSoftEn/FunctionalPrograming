@@ -26,3 +26,5 @@ example1.hi();
 
 var example2 = test2.getNew();
 example2.hi();
+
+// https://stackoverflow.com/questions/17382143/create-a-new-object-from-type-parameter-in-generic-class
