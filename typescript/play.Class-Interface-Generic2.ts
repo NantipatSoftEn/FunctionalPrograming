@@ -7,8 +7,8 @@ interface ITypeClass<T> {
 }
 
 interface IVarOfClass2<T1, T2> {
-  name: T;
-  age: T;
+  name: T1;
+  age: T2;
 }
 
 class NormalClass2<T extends IVarOfClass2<string, number>>
@@ -36,6 +36,6 @@ const c2 = new NormalClass2<IVarOfClass2<string, number>>({
   age: 22,
 });
 
-console.log(c1.get1(1));
+console.log(c2.get1(1));
 
-console.log(c1.varOfClass);
+console.log(c2.varOfClass);
